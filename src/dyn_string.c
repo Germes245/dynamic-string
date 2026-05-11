@@ -1,24 +1,25 @@
 #include <string.h>
 #include <stdlib.h>
+#include "dyn_string.h"
 
-char* dyn_string_init(char string[]){
-    size_t size = strlen(string) + 1;
-    char* result = malloc(size);
-    memcpy(result, string, size);
+dyn_string dyn_string_init(char* string){
+    dyn_string result;
+    result.size = strlen(string) + 1;
+    result.string = malloc(result.size);
+    memcpy(result.string, string, result.size);
     return result;
 }
 
-char* dyn_string_rewrite(char* string, char* new_string){
-    size_t size = strlen(new_string) + 1;
-    string = realloc(string, size);
-    memcpy(string, new_string, size);
-    return string;
+dyn_string dyn_string_rewrite(dyn_string *string, char* new_string){
+    string->size = strlen(new_string) + 1;
+    string->string = realloc(string->string, string->size);
+    memcpy(string->string, new_string, string->size);
+    return string->string;
 }
 
-void dyn_string_free(char *string[]){
-    //printf("dyn_string_free\n");
-    if(*string){
-        free(*string);
-        *string = 0;
+void dyn_string_free(dyn_string *string){
+    if(string->size){
+        free(string->string);
+        string->size = 0;
     }
 }

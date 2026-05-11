@@ -1,4 +1,9 @@
-typedef char* dyn_string;
+#include <stddef.h>
+
+typedef struct{
+    char* string;
+    size_t size;
+} dyn_string;
 
 dyn_string dyn_string_init(char* string);
 dyn_string dyn_string_rewrite(dyn_string string, char* new_string);
