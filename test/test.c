@@ -10,12 +10,11 @@ char* dyn_string_init(char string[]){
     return result;
 }
 
-void dyn_string_rewrite(char *string[], char new_string[]){
-    printf("dyn_string_rewrite\n");
+char* dyn_string_rewrite(char* string, char* new_string){
     size_t size = strlen(new_string) + 1;
-    *string = realloc(*string, size);
+    string = realloc(string, size);
     memcpy(string, new_string, size);
-    //return string;
+    return string;
 }
 
 void dyn_string_free(char *string[]){
@@ -30,7 +29,7 @@ int main(){
     char* string = dyn_string_init("shya");
     printf("%d\n", string);
     printf("%s\n", string);
-    dyn_string_rewrite(&string, "sha");
+    string = dyn_string_rewrite(string, "sha");
     printf("%d\n", string);
     printf("%s\n", string);
     dyn_string_free(&string);
