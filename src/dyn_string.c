@@ -10,11 +10,10 @@ dyn_string dyn_string_init(char* string){
     return result;
 }
 
-dyn_string dyn_string_rewrite(dyn_string *string, char* new_string){
+void dyn_string_rewrite(dyn_string *string, char* new_string){
     string->size = strlen(new_string) + 1;
     string->string = realloc(string->string, string->size);
     memcpy(string->string, new_string, string->size);
-    return string->string;
 }
 
 void dyn_string_free(dyn_string *string){
