@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <string.h>
 #include <stdlib.h>
 #include "dyn_string.h"
@@ -11,8 +12,11 @@ dyn_string dyn_string_init(char* string){
 }
 
 void dyn_string_rewrite(dyn_string *string, char* new_string){
-    string->size = strlen(new_string) + 1;
-    string->string = realloc(string->string, string->size);
+    size_t new_size = strlen(new_string) + 1;
+    if(new_size != string->size){
+        string->string = realloc(string->string, string->size);
+        string->size = new_size;
+    }
     memcpy(string->string, new_string, string->size);
 }
 
